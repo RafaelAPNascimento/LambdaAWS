@@ -5,14 +5,15 @@ provider:
    name: aws
    runtime: java8
    stage: dev
-   region: sa-esat-1
+   region: sa-east-1
    
 package:
   artifact: target/original-LambdaAws-0.0.1-SNAPSHOT.jar   
    
 functions:   
    createSession_:
-      handler: com.uol.estudo.requests.RequestHandler.createSession
+      role: arn:aws:iam::423672971386:role/DBA
+      handler: com.uol.estudo.requests.RequestHandler
       events:
          - http:
             path: session
@@ -20,13 +21,12 @@ functions:
             headers:
                Content-Type: "application/json"
             request:
+               url: true
                template:
                  application/json: >
                     {
                        "ttl": $input.params('ttl'),
                        "id": $input.params('id')
                      }                                             
-   environment: 
-      TABLE_NAME: ActiveSession
-      
-   role: arn:aws:iam::423672971386:role/DBA          
+      environment: 
+         TABLE_NAME: ActiveSession                 

@@ -36,7 +36,7 @@ public class RequestHandler
     private static final String DYNAMODB_TABLE_NAME = System.getenv("TABLE_NAME");
 
     @SuppressWarnings("unchecked")
-    public void createSession(InputStream inputStream, OutputStream outputStream, Context context) throws IOException
+    public void createSession_(InputStream inputStream, OutputStream outputStream, Context context) throws IOException
     {
 
         context.getLogger().log(
