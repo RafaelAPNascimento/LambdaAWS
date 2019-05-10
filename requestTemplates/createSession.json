@@ -1,0 +1,4 @@
+{
+  "ttl": $input.params('ttl'),
+  "id": $input.params('id')
+}

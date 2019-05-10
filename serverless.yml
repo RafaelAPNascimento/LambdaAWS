@@ -1,0 +1,32 @@
+service: session-api-from-script
+
+provider:
+
+   name: aws
+   runtime: java8
+   stage: dev
+   region: sa-esat-1
+   
+package:
+  artifact: target/original-LambdaAws-0.0.1-SNAPSHOT.jar   
+   
+functions:   
+   createSession_:
+      handler: com.uol.estudo.requests.RequestHandler.createSession
+      events:
+         - http:
+            path: session
+            method: post      
+            headers:
+               Content-Type: "application/json"
+            request:
+               template:
+                 application/json: >
+                    {
+                       "ttl": $input.params('ttl'),
+                       "id": $input.params('id')
+                     }                                             
+   environment: 
+      TABLE_NAME: ActiveSession
+      
+   role: arn:aws:iam::423672971386:role/DBA          
